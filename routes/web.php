@@ -14,13 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('admin.dashboard');
-    // return view('welcome');
+    return view('welcome');
 });
 Route::get('/{any}', function () {
     return view('admin.dashboard');
     // return view('welcome');
-})->where('router','*.');
+})->prefix('admin/')->where('router','*.');
 
 
 // Route::get('/admin/dashboard',function(){

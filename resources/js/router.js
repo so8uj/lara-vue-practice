@@ -5,13 +5,13 @@ import Service from './pages/admin/service.vue';
 
 const routes = [
     {
-        path: '/dashboard',
-        name:'admin.dashboard',
+        path: '/admin/dashboard',
+        name:'admin_dashboard',
         component: Dashboard
     },
     {
-        path: '/service',
-        name:'admin.service',
+        path: '/admin/service',
+        name:'admin_service',
         component: Service
     }
 ];
