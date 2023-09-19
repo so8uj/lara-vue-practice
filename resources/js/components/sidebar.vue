@@ -25,18 +25,26 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                     <li class="nav-item">
-                        <router-link :to="{name:'admin_dashboard'}" class="nav-link">
+                        <router-link active-class="active" :to="{name:'admin_dashboard'}" class="nav-link">
                             <i class="nav-icon fa fa-home"></i>
                             <p>
                                 Home
                             </p>
                         </router-link>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <router-link :to="{name:'admin_service'}" class="nav-link">
                             <i class="nav-icon fas fa-paper-plane"></i>
                             <p>
                                 Service
+                            </p>
+                        </router-link>
+                    </li> -->
+                    <li class="nav-item">
+                        <router-link active-class="active" :to="{name:'admin_students'}" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Students
                             </p>
                         </router-link>
                     </li>

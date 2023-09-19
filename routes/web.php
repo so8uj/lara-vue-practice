@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,14 @@ Route::get('/{any}', function () {
     return view('admin.dashboard');
     // return view('welcome');
 })->prefix('admin/')->where('router','*.');
+
+
+Route::get('/api/students',[StudentController::class,'all_students']);
+Route::controller(StudentController::class)->prefix('/api/student')->group(function(){
+    Route::post('/add','add_student');
+    Route::post('/update','update_student');
+    Route::post('/delete/{id}','delete_student');
+});
 
 
 // Route::get('/admin/dashboard',function(){

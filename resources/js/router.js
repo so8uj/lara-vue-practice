@@ -2,6 +2,7 @@ import { createWebHistory , createRouter } from "vue-router";
 
 import Dashboard from './pages/admin/dashboard.vue';
 import Service from './pages/admin/service.vue';
+import Students from './pages/admin/students.vue';
 
 const routes = [
     {
@@ -13,6 +14,11 @@ const routes = [
         path: '/admin/service',
         name:'admin_service',
         component: Service
+    },
+    {
+        path: '/admin/students',
+        name:'admin_students',
+        component: Students
     }
 ];
 const router = createRouter({
