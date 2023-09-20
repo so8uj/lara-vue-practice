@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     Route::post('/add','add_student');
 // });
 Route::post('/api/student/add',[StudentController::class,'add_student']);
+Route::get('/api/students/trash_students',[StudentController::class,'trash_students']);

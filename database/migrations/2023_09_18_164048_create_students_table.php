@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('roll');
+            $table->integer('roll')->unique();
             $table->string('department');
             $table->string('batch');
             $table->softDeletes();

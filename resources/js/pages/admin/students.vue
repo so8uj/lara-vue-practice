@@ -18,9 +18,13 @@
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <button type="button" @click="data.showModal=true" class="btn btn-primary mb-3">
-                            Add Student
+                            <i class="fa fa-user-plus"></i> Add Student
                         </button>
+                        <router-link :to="{name:'admin_students_trash'}" type="button" class="btn btn-warning ml-3 mb-3">
+                            <i class="fa fa-trash"></i> Trash
+                        </router-link>
                         <div class="mt-3 alert alert-success" v-if="success.student_added">{{ success.student_added[0] }}</div>
+                        <div class="mt-3 alert alert-waring" v-if="success.student_deleted">{{ success.student_deleted[0] }}</div>
                         <div class="card">
 
                             <div class="card-body">
@@ -43,8 +47,8 @@
                                             <td>{{ user.department }}</td>
                                             <td>{{ user.batch }}</td>
                                             <td>
-                                                <button @click="updateModalShow(user)" class="btn btn-xs btn-primary mr-1"><i class="fa fa-edit"></i></button>
-                                                <button @click="deleteStudent(user.id)" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+                                                <button title="Edit" @click="updateModalShow(user)" class="btn btn-xs btn-primary mr-1"><i class="fa fa-edit"></i></button>
+                                                <button title="Delete" @click="deleteStudent(user.id)" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>
 
@@ -57,7 +61,6 @@
 
 
                 <!-- add student modal -->
-
 
                 <div v-if="data.showModal" class="modal fade" :class="{'show':data.showModal}" style="display: block; padding-left: 17px;"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -74,14 +77,14 @@
                                 <form @submit.prevent>
                                     <div class="form-group">
                                         <label for="name">Name</label>
-                                        <input type="text" v-model="formData.name" class="form-control" :class="{'is-invalid':errors.name}" id="name" placeholder="type name">
+                                        <input type="text" v-model="formData.name" class="form-control" :class="{'is-invalid':errors.name}" id="name" placeholder="type name" >
                                         <strong class="text-danger" v-if="errors.name">{{ errors.name[0] }}</strong>
                                     </div>
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="roll">Roll</label>
-                                                <input type="text" v-model="formData.roll" class="form-control" :class="{'is-invalid':errors.roll}" id="roll" placeholder="type roll">
+                                                <input type="text" v-model="formData.roll" class="form-control" :class="{'is-invalid':errors.roll}" id="roll" placeholder="type roll" :disabled="data.editingModal">
                                                 <strong class="text-danger" v-if="errors.roll">{{ errors.roll[0] }}</strong>
                                                 
                                             </div>
@@ -128,7 +131,9 @@ import axios from 'axios';
 let data = reactive({
     showModal: false,
     editingModal: false,
-    updateUserID: ''
+    updateUserID: {
+        id:'',
+    }
     
 });
 
@@ -189,10 +194,12 @@ const updateFromData = async () => {
 
 const deleteStudent = (userId) => {
     if(confirm('are you sure')){
-        // axios.post('/api/student/delete',userId)
-        // .then((res)=>{
-        //     alert(res);
-        // });
+        data.updateUserID.id = userId;
+        axios.post('/api/student/delete',data.updateUserID)
+        .then((response)=>{
+            users.value = response.data.students;
+            success.value = response.data.message;
+        });
     }
 }
 

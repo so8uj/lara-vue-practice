@@ -24,10 +24,12 @@ Route::get('/{any}', function () {
 
 
 Route::get('/api/students',[StudentController::class,'all_students']);
+Route::get('/api/students/trash-students',[StudentController::class,'trash_students']);
+
 Route::controller(StudentController::class)->prefix('/api/student')->group(function(){
     Route::post('/add','add_student');
     Route::post('/update','update_student');
-    Route::post('/delete/{id}','delete_student');
+    Route::post('/delete','delete_student');
 });
 
 
